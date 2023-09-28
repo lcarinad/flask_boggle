@@ -1,4 +1,14 @@
 {% extends 'base.html' %} {% block title %}Play Boggle{% endblock %} {% block
 content %}
-<p>This is boggle</p>
+
+<table>
+  {% for row in board %}
+  <tr>
+    {{row}}
+    <td>{% for letter in row %}</td>
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+
 {% endblock %}
