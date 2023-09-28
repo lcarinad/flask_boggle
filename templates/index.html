@@ -4,8 +4,8 @@ content %}
 <table>
   {% for row in board %}
   <tr>
-    {{row}}
-    <td>{% for letter in row %}</td>
+    {% for letter in row %}
+    <td>{{letter}}</td>
     {% endfor %}
   </tr>
   {% endfor %}
