@@ -10,5 +10,15 @@ content %}
   </tr>
   {% endfor %}
 </table>
-
+<form
+  action="/word"
+  method="post">
+  <label for="guess">Type your guess</label>
+  <input
+    type="text"
+    name="guess"
+    placeholder="Enter a word"
+    id="word-input" />
+  <button id="submit-btn">Good Luck!</button>
+</form>
 {% endblock %}

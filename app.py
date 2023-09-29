@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, jsonify
+
 
 
 app = Flask(__name__)
@@ -13,4 +14,12 @@ boggle_game = Boggle()
 def index():
     new_board = Boggle()
     board = new_board.make_board()
+    session['current_board'] = board
     return render_template('index.html', board = board)
+
+@app.route('/word', methods=["POST"])
+def accept_word():
+    submitted_word = request.json.get("word")
+    print("************************")
+    print(submitted_word)
+    return redirect('/')
