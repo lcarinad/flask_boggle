@@ -1,5 +1,6 @@
 let $submitBtn = $("#submit-btn");
 let checkWordUrl = "http://127.0.0.1:5000/word";
+let endOfGameUrl = "http://127.0.0.1:5000/end";
 let $scoreBoard = $("#score-board");
 let $beginBtn = $("#begin-btn");
 let $page = $("#game");
@@ -46,10 +47,14 @@ function createTimer() {
       gameOver = true;
       $page.hide();
       $beginBtn.text("Play Again!").show();
-      result = 0;
+      endOfGame(result);
     }
   }
   tick();
+}
+
+async function endOfGame(score) {
+  await axios.post(endOfGameUrl, { score });
 }
 
 $("form").on("submit", function (e) {

@@ -14,6 +14,9 @@ boggle_game = Boggle()
 def index():
     board = boggle_game.make_board()
     session['current_board'] = board
+   
+
+       
     return render_template('index.html', board = board)
 
 @app.route('/word', methods=["POST", "GET"])
@@ -24,3 +27,21 @@ def accept_word():
     response = jsonify({"result":result})
 
     return response
+
+@app.route('/end', methods=["POST"])
+def update():
+    score = request.json.get("score")
+    if "player_scores" in session:
+        session["player_scores"].append(score)
+    else:
+        session['player_scores']=[score]
+
+    print("*************")
+    print( session['player_scores'])
+    
+    if "num_game_played" in session:
+        session["num_game_played"] = session.get("num_game_played")+1
+    else:
+        session["num_game_played"] = 1
+    
+    return redirect("/")
