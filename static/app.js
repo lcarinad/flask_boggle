@@ -5,9 +5,15 @@ let $beginBtn = $("#begin-btn");
 let $page = $("#game");
 
 let result = 0;
+let gameOver = false;
 $page.hide();
 
 async function checkWord(word) {
+  if (gameOver) {
+    alert("Game over!  You can not make guesses.");
+    return;
+  }
+
   let response = await axios.post(checkWordUrl, {
     word,
   });
@@ -27,6 +33,24 @@ function addToScore(word) {
   result = updatedResult;
   $scoreBoard.text(result);
 }
+function createTimer() {
+  let seconds = 59;
+  let $counter = $("#counter");
+  function tick() {
+    seconds--;
+    $counter.html("00:" + (seconds < 10 ? "0" : "") + seconds);
+    if (seconds > 0) {
+      setTimeout(tick, 1000);
+    } else {
+      alert("Times up!");
+      gameOver = true;
+      $page.hide();
+      $beginBtn.text("Play Again!").show();
+      result = 0;
+    }
+  }
+  tick();
+}
 
 $("form").on("submit", function (e) {
   e.preventDefault();
@@ -39,4 +63,5 @@ $beginBtn.on("click", function (e) {
   e.preventDefault();
   $beginBtn.hide();
   $page.show();
+  createTimer();
 });
