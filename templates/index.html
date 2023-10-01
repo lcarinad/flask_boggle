@@ -1,29 +1,30 @@
 {% extends 'base.html' %} {% block title %}Play Boggle{% endblock %} {% block
 content %}
-
-<table>
-  {% for row in board %}
-  <tr>
-    {% for letter in row %}
-    <td>{{letter}}</td>
+<button id="begin-btn">Begin Game</button>
+<div id="game">
+  <table>
+    {% for row in board %}
+    <tr>
+      {% for letter in row %}
+      <td>{{letter}}</td>
+      {% endfor %}
+    </tr>
     {% endfor %}
-  </tr>
-  {% endfor %}
-</table>
-<form
-  action="/word"
-  method="post">
-  <label for="guess">Type your guess</label>
-  <input
-    type="text"
-    name="guess"
-    placeholder="Enter a word"
-    id="word-input" />
-  <button id="submit-btn">Good Luck!</button>
-</form>
-<div>
-  <h3>ScoreBoard</h3>
-  <p id="score-board"></p>
+  </table>
+  <form
+    action="/word"
+    method="post">
+    <label for="guess">Type your guess</label>
+    <input
+      type="text"
+      name="guess"
+      placeholder="Enter a word"
+      id="word-input" />
+    <button id="submit-btn">Good Luck!</button>
+  </form>
+  <div>
+    <h3>ScoreBoard</h3>
+    <p id="score-board"></p>
+  </div>
 </div>
-
 {% endblock %}

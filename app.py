@@ -9,9 +9,10 @@ from boggle import Boggle
 app.config['SECRET_KEY'] = 'abc123'
 
 boggle_game = Boggle()
-board = boggle_game.make_board()
+
 @app.route('/')
 def index():
+    board = boggle_game.make_board()
     session['current_board'] = board
     return render_template('index.html', board = board)
 
