@@ -13,10 +13,7 @@ boggle_game = Boggle()
 @app.route('/')
 def index():
     board = boggle_game.make_board()
-    session['current_board'] = board
-   
-
-       
+    session['current_board'] = board     
     return render_template('index.html', board = board)
 
 @app.route('/word', methods=["POST", "GET"])
@@ -36,8 +33,6 @@ def update():
     else:
         session['player_scores']=[score]
 
-    print("*************")
-    print( session['player_scores'])
     
     if "num_game_played" in session:
         session["num_game_played"] = session.get("num_game_played")+1

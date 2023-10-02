@@ -67,6 +67,9 @@ $("form").on("submit", function (e) {
 $beginBtn.on("click", function (e) {
   e.preventDefault();
   $beginBtn.hide();
+  gameOver = false;
+  result = 0;
+  $scoreBoard.text(result);
   $page.show();
   createTimer();
 });
