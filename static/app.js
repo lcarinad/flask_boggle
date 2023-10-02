@@ -6,15 +6,9 @@ let $beginBtn = $("#begin-btn");
 let $page = $("#game");
 
 let result = 0;
-let gameOver = false;
 $page.hide();
 
 async function checkWord(word) {
-  if (gameOver) {
-    alert("Game over!  You can not make guesses.");
-    return;
-  }
-
   let response = await axios.post(checkWordUrl, {
     word,
   });
@@ -22,9 +16,12 @@ async function checkWord(word) {
 
   if (validityCheck === "ok") {
     addToScore(word);
+  } else if (validityCheck === "not-on-board") {
+    alert("That word is valid but it's not on the board.  Try again.");
   } else {
-    alert("That word is not on the board.  Try again");
+    alert("Not a word!");
   }
+  console.log(response);
 }
 
 function addToScore(word) {
@@ -44,7 +41,6 @@ function createTimer() {
       setTimeout(tick, 1000);
     } else {
       alert("Times up!");
-      gameOver = true;
       $page.hide();
       $beginBtn.text("Play Again!").show();
       endOfGame(result);
@@ -67,7 +63,6 @@ $("form").on("submit", function (e) {
 $beginBtn.on("click", function (e) {
   e.preventDefault();
   $beginBtn.hide();
-  gameOver = false;
   result = 0;
   $scoreBoard.text(result);
   $page.show();
