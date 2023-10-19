@@ -15,8 +15,7 @@ def index():
 
 @app.route('/word', methods=["POST"])
 def accept_word():
-    # import pdb
-    # pdb.set_trace()
+
    
     submitted_word = request.json.get("word")   
     result =  boggle_game.check_valid_word(session['current_board'], submitted_word)
@@ -28,6 +27,7 @@ def accept_word():
 @app.route('/end', methods=["POST"])
 def update():
     score = request.json.get("score")
+
     if "player_scores" in session:
         session["player_scores"].append(score)
     else:
@@ -38,5 +38,5 @@ def update():
         session["num_game_played"] = session.get("num_game_played")+1
     else:
         session["num_game_played"] = 1
-    
+
     return redirect("/")

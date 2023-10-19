@@ -21,18 +21,16 @@ async function checkWord(word) {
   } else {
     alert("Not a word!");
   }
-  console.log(response);
 }
 
 function addToScore(word) {
-  //   console.log(`yay you got a point with ${word}`);
   let points = word.length;
   let updatedResult = result + points;
   result = updatedResult;
   $scoreBoard.text(result);
 }
 function createTimer() {
-  let seconds = 59;
+  let seconds = 60;
   let $counter = $("#counter");
   function tick() {
     seconds--;
@@ -50,7 +48,7 @@ function createTimer() {
 }
 
 async function endOfGame(score) {
-  await axios.post(endOfGameUrl, { score });
+  return await axios.post(endOfGameUrl, { score });
 }
 
 $("form").on("submit", function (e) {
